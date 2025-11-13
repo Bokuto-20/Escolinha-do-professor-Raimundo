@@ -40,7 +40,7 @@ Clone o repositório e navegue até o diretório do projeto:
 # Substitua 'seu-repositorio' pelo nome real do seu repositório
 git clone https://github.com/Bokuto-20/Escolinha-do-professor-Raimundo
 .git
-cd Escolinha-do-professor
+cd Escolinha-do-professor-Raimundo
 ```
 
 Crie e ative um ambiente virtual (recomendado):
