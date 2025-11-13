@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Períodos{% endblock %}
+
+{% block content %}
+    <h2>Períodos Catalogados</h2>
+    {% if periodos %}
+        {% for periodo in periodos %}
+            <div class="periodo-card">
+                <h2><a href="{% url 'periodo_detail' pk=periodo.pk %}">Período #{{ periodo.id }} - {{ periodo.get_tipo_periodo_display }}</a></h2>
+                <p><strong>Texto:</strong> {{ periodo.texto_original|truncatechars:100 }}</p>
+                <p><em>Criado em: {{ periodo.data_criacao|date:"d/m/Y H:i" }}</em></p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhum período catalogado ainda. Use o <a href="{% url 'admin:index' %}">Painel de Administração</a> para adicionar novos períodos.</p>
+    {% endif %}
+{% endblock %}

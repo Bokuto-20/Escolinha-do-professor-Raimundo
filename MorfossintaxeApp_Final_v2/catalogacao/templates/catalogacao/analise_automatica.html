@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Análise Sintática Automática (PLN){% endblock %}
+
+{% block content %}
+    <h2>Análise Sintática Automática (PLN)</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <label for="texto_periodo">Insira o Período para Análise:</label>
+        <textarea name="texto_periodo" id="texto_periodo" rows="5" style="width: 100%; margin-bottom: 10px;">{{ texto_entrada }}</textarea>
+        <button type="submit" class="btn btn-primary">Analisar</button>
+    </form>
+
+    {% if analise_resultado %}
+        {% if analise_resultado.error %}
+            <div style="color: red; margin-top: 20px;">
+                <strong>Erro na Análise:</strong> {{ analise_resultado.error }}
+            </div>
+        {% else %}
+            <h3 style="margin-top: 30px;">Resultado da Análise Automática</h3>
+            
+            <div class="periodo-card">
+                <p><strong>Texto Analisado:</strong> {{ analise_resultado.texto_original }}</p>
+                <p><strong>Tipo de Período (PLN):</strong> {{ analise_resultado.tipo_periodo }}</p>
+            </div>
+
+            <h4 style="margin-top: 20px;">Estrutura Sintática Identificada:</h4>
+            
+            <div class="hierarquia">
+                {% for oracao_data in analise_resultado.estrutura_sintatica %}
+                    {% include "catalogacao/partials/oracao_card_pln.html" with oracao_data=oracao_data nivel=0 %}
+                {% endfor %}
+            </div>
+            
+            <p style="margin-top: 20px; font-style: italic; color: #666;">
+                *A identificação de orações e componentes sintáticos foi realizada por um modelo de Processamento de Linguagem Natural (spaCy) e é uma simplificação para fins de demonstração. A classificação hierárquica (subordinadas) não foi implementada automaticamente devido à sua complexidade.
+            </p>
+        {% endif %}
+    {% endif %}
+{% endblock %}

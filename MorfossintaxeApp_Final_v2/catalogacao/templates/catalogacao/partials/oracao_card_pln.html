@@ -1,0 +1,30 @@
+{% with oracao=oracao_data.oracao componentes=oracao_data.componentes subordinadas=oracao_data.subordinadas %}
+    <div class="oracao-card" style="margin-left: {{ nivel|default:0|add:'20' }}px; border-left-color: {% if nivel == 0 %}#28a745{% elif nivel == 1 %}#ffc107{% else %}#dc3545{% endif %};">
+        <h4>Oração #{{ oracao.id }} - {{ oracao.tipo_oracao }}</h4>
+        <p><strong>Texto:</strong> {{ oracao.texto_oracao }}</p>
+        
+        {% if componentes %}
+            <h5>Componentes Sintáticos Identificados:</h5>
+            {% for componente in componentes %}
+                <div class="componente-card" style="border-bottom: 1px dotted #ccc;">
+                    <span class="{% if componente.tipo_componente == 'SUJEITO' %}sujeito{% elif componente.tipo_componente == 'PREDICADO' %}predicado{% else %}outros{% endif %}" style="color: {% if componente.tipo_componente == 'SUJEITO' %}#dc3545{% elif componente.tipo_componente == 'PREDICADO' %}#007bff{% else %}#6f42c1{% endif %}; font-weight: bold;">
+                        {{ componente.tipo_componente }}:
+                    </span>
+                    {{ componente.texto_componente }} 
+                    {% if componente.classificacao %}
+                        <em>({{ componente.classificacao }})</em>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if subordinadas %}
+            <div class="subordinadas-container">
+                <h6>Orações Subordinadas:</h6>
+                {% for sub_oracao_data in subordinadas %}
+                    {% include "catalogacao/partials/oracao_card_pln.html" with oracao_data=sub_oracao_data nivel=nivel|add:1 %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endwith %}

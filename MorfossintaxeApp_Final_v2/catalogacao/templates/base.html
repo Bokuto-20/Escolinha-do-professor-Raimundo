@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Domínio da Estrutura Morfossintática do Período{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
+        header { background-color: #007bff; color: white; padding: 20px; text-align: center; }
+        header h1 { margin: 0; }
+        nav { background-color: #0056b3; padding: 10px 0; }
+        nav ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+        nav ul li { display: inline; margin: 0 15px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; }
+        .container { width: 80%; margin: 20px auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        .periodo-card { border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px; background-color: #fff; }
+        .periodo-card h2 a { color: #007bff; text-decoration: none; }
+        .periodo-card p { margin: 5px 0; }
+        .oracao-card { border-left: 3px solid #28a745; padding-left: 10px; margin-top: 10px; background-color: #e9f7ed; border-radius: 3px; }
+        .componente-card { margin-top: 5px; padding: 5px; border-bottom: 1px dotted #ccc; }
+        .sujeito { color: #dc3545; font-weight: bold; }
+        .predicado { color: #007bff; font-weight: bold; }
+        .subordinada { margin-left: 20px; border-left: 2px dashed #ffc107; padding-left: 10px; margin-top: 5px; }
+        .hierarquia { margin-top: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Domínio da Estrutura Morfossintática do Período</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'periodo_list' %}">Lista de Períodos (Manual)</a></li>
+            <li><a href="{% url 'adicionar_periodo_manual' %}">Adicionar Período (Manual)</a></li>
+            <li><a href="{% url 'analise_automatica' %}">Análise Automática (PLN)</a></li>
+            <li><a href="{% url 'admin:index' %}">Administração (Admin/admin)</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

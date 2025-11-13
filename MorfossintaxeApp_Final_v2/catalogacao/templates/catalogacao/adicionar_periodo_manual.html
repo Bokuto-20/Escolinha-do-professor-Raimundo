@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar Período (Manual){% endblock %}
+
+{% block content %}
+    <h2>Adicionar Novo Período para Análise Manual</h2>
+    
+    <form method="post" class="form-manual">
+        {% csrf_token %}
+        
+        <h3>1. Dados do Período</h3>
+        {{ form.as_p }}
+
+        <h3>2. Orações do Período</h3>
+        {{ formset.management_form }}
+        {% for form_oracao in formset %}
+            <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                <h4>Oração #{{ forloop.counter }}</h4>
+                {{ form_oracao.as_p }}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Salvar Período e Orações</button>
+    </form>
+
+    <p style="margin-top: 20px; font-style: italic; color: #666;">
+        *A adição de Componentes Sintáticos (Sujeito, Predicado) ainda deve ser feita através do painel de Administração após salvar o Período e as Orações.
+    </p>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhe do Período #{{ periodo.id }}{% endblock %}
+
+{% block content %}
+    <a href="{% url 'periodo_list' %}">← Voltar para a lista</a>
+    <h2>Detalhe do Período #{{ periodo.id }}</h2>
+    
+    <div class="periodo-card">
+        <p><strong>Tipo:</strong> {{ periodo.get_tipo_periodo_display }}</p>
+        <p><strong>Texto Completo:</strong> {{ periodo.texto_original }}</p>
+        <p><em>Criado em: {{ periodo.data_criacao|date:"d/m/Y H:i" }}</em></p>
+    </div>
+
+    <h3>Estrutura Morfossintática (Mapeamento Hierárquico)</h3>
+    {% for oracao in periodo.oracoes.all %}
+        <a href="{% url 'adicionar_componente_manual' oracao.pk %}" class="btn btn-sm btn-secondary" style="margin-bottom: 10px;">Adicionar Componentes (Sujeito/Predicado) para Oração #{{ oracao.id }}</a>
+    {% endfor %}
+
+    {% if estrutura_sintatica %}
+        <div class="hierarquia">
+            {% for oracao_data in estrutura_sintatica %}
+                {% include "catalogacao/partials/oracao_card.html" with oracao_data=oracao_data nivel=0 %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Nenhuma oração associada a este período.</p>
+    {% endif %}
+
+{% endblock %}

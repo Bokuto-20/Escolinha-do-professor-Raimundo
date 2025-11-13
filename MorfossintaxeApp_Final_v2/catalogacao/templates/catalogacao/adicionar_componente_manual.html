@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar Componente Sintático{% endblock %}
+
+{% block content %}
+    <h2>Adicionar Componente Sintático</h2>
+    
+    <p><strong>Período:</strong> {{ periodo.texto_original }}</p>
+    <p><strong>Oração:</strong> {{ oracao.texto_oracao }}</p>
+
+    <form method="post" class="form-manual">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Salvar Componente</button>
+    </form>
+
+    <p style="margin-top: 20px; font-style: italic; color: #666;">
+        *Use este formulário para adicionar o Sujeito e o Predicado (e suas classificações) à oração selecionada.
+    </p>
+{% endblock %}
